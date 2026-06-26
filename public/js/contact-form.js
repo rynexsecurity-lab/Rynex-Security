@@ -51,7 +51,6 @@ if (form) {
             const data = await response.json();
 
             if (response.ok && data.success) {
-                alert('Success! Your message has been sent.');
                 form.reset();
 
                 if (formStatus) {
@@ -62,16 +61,12 @@ if (form) {
                     }
                 }
             } else {
-                alert('Error: ' + (data.message || 'Message could not be sent. Please try again.'));
-
                 if (formStatus) {
                     formStatus.textContent = data.message || 'Message could not be sent. Please try again.';
                     formStatus.style.color = '#ff6b6b';
                 }
             }
         } catch (error) {
-            alert('Something went wrong. Please try again.');
-
             if (formStatus) {
                 formStatus.textContent = error.message || 'Network error while sending the message. Please try again.';
                 formStatus.style.color = '#ff6b6b';
