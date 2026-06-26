@@ -1,5 +1,4 @@
 const { validationResult, matchedData } = require('express-validator');
-const { submitToWeb3Forms } = require('../services/web3FormsService');
 const { sendContactNotification, sendVisitorConfirmation } = require('../services/emailService');
 
 const submitContactForm = async (req, res, next) => {
@@ -26,20 +25,10 @@ const submitContactForm = async (req, res, next) => {
   };
 
   try {
-    let web3Result = null;
-    let web3Error = null;
-
-    try {
-      web3Result = await submitToWeb3Forms(data, metadata);
-    } catch (error) {
-      web3Error = error;
-      console.error('Web3Forms submission failed:', error.message);
-    }
-
     const emailResults = await Promise.allSettled([
-      sendContactNotification(data, metadata, web3Result || {
-        success: false,
-        message: web3Error?.message || 'Web3Forms fallback path used.'
+      sendContactNotification(data, metadata, {
+        success: true,
+        message: 'Submitted successfully.'
       }),
       sendVisitorConfirmation(data, metadata)
     ]);
@@ -53,8 +42,8 @@ const submitContactForm = async (req, res, next) => {
       }
     });
 
-    if (!web3Result?.success && !notificationSent) {
-      const error = new Error('Message could not be sent through Web3Forms or email fallback.');
+    if (!notificationSent) {
+      const error = new Error('Message could not be sent through email notification.');
       error.status = 502;
       throw error;
     }

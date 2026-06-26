@@ -7,24 +7,23 @@ const submitToWeb3Forms = async (data, metadata) => {
     throw error;
   }
 
-  const payload = {
-    access_key: accessKey,
-    subject: data.subject || 'New Rynex Security contact form submission',
-    from_name: data.name,
-    name: data.name,
-    email: data.email,
-    phone: data.phone || '',
-    company: data.company || '',
-    message: data.message,
-    timestamp: metadata.timestamp,
-    ip_address: metadata.ipAddress,
-    user_agent: metadata.userAgent
-  };
+  const payload = new FormData();
+  payload.append('access_key', accessKey);
+  payload.append('subject', data.subject || 'New Rynex Security contact form submission');
+  payload.append('from_name', data.name);
+  payload.append('name', data.name);
+  payload.append('email', data.email);
+  payload.append('reply_to', data.email);
+  payload.append('phone', data.phone || '');
+  payload.append('company', data.company || '');
+  payload.append('message', data.message);
+  payload.append('timestamp', metadata.timestamp);
+  payload.append('ip_address', metadata.ipAddress);
+  payload.append('user_agent', metadata.userAgent);
 
   const response = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify(payload)
+    body: payload
   });
 
   const result = await response.json().catch(() => ({}));

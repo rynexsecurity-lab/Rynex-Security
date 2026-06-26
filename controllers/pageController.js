@@ -19,11 +19,14 @@ const renderPage = (page) => (req, res) => {
     }
   };
 
+  const web3FormsAccessKey = page.view === 'contact' ? (process.env.WEB3FORMS_ACCESS_KEY || '') : '';
+
   res.render(`pages/${page.view}`, {
     ...page,
     canonicalUrl: `${baseUrl}${canonicalPath}`,
     canonicalPath,
-    structuredData
+    structuredData,
+    web3FormsAccessKey
   });
 };
 
