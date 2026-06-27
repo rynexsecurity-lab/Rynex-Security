@@ -416,6 +416,12 @@
             .timer-subtitle {
                 font-size: 0.95rem;
             }
+            .timer-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .time-box {
+                padding: 12px 10px;
+            }
             .meta {
                 flex-direction: column;
             }
@@ -650,6 +656,71 @@
             .benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
         @media (max-width: 768px) {
+            nav {
+                min-height: 72px;
+                position: relative;
+            }
+
+            .logo {
+                min-width: 0;
+            }
+
+            .logo img {
+                height: 42px;
+                flex-shrink: 0;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+                line-height: 1.2;
+            }
+
+            .nav-links {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                gap: 0;
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                padding: 0 20px;
+                pointer-events: none;
+                text-align: center;
+                transform: translateY(-10px);
+                border-bottom: 1px solid var(--primary);
+                backdrop-filter: blur(20px);
+                box-shadow: 0 16px 30px rgba(0, 0, 0, 0.45);
+            }
+
+            .nav-links.active {
+                max-height: 340px;
+                opacity: 1;
+                padding: 24px 20px;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 13px 0;
+            }
+
+            .hamburger {
+                align-items: center;
+                display: flex;
+                height: 44px;
+                justify-content: center;
+                width: 44px;
+            }
+
             .hero-copy h1 { font-size: 2.2rem; letter-spacing: 2px; }
             .hero { padding-top: 160px; }
             .pill-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
