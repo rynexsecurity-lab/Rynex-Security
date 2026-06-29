@@ -77,22 +77,15 @@ AOS.init({ once: false, mirror: true });
         const hoursLeftEl = document.getElementById('hoursLeft');
         const minutesLeftEl = document.getElementById('minutesLeft');
         const secondsLeftEl = document.getElementById('secondsLeft');
-        const deadline = new Date('2026-07-05T00:00:00');
+        const deadline = new Date('2020-01-01T00:00:00');
 
         const pad = value => String(value).padStart(2, '0');
 
         const tick = () => {
-            const now = new Date();
-            const remainingMs = Math.max(deadline - now, 0);
-            const days = Math.floor(remainingMs / 86400000);
-            const hours = Math.floor((remainingMs % 86400000) / 3600000);
-            const minutes = Math.floor((remainingMs % 3600000) / 60000);
-            const seconds = Math.floor((remainingMs % 60000) / 1000);
-
-            daysLeftEl.textContent = pad(days);
-            hoursLeftEl.textContent = pad(hours);
-            minutesLeftEl.textContent = pad(minutes);
-            secondsLeftEl.textContent = pad(seconds);
+            daysLeftEl.textContent = '00';
+            hoursLeftEl.textContent = '00';
+            minutesLeftEl.textContent = '00';
+            secondsLeftEl.textContent = '00';
         };
 
         tick();
